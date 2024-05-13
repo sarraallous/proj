@@ -44,4 +44,7 @@ public class UserService {
         return eq;
 
     }
+    public User registerUser(User user) {
+        return addUser(user);
+    }
 }
