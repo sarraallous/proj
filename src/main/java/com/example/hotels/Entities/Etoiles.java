@@ -1,4 +1,4 @@
-package com.example.hotels;
+package com.example.hotels.Entities;
 
 import java.io.Serializable;
 
