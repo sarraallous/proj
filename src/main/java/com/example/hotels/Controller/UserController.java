@@ -15,40 +15,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
 
-   /* @Autowired
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new User());
-        return "signup"; // Assuming you have a signup.html template for the sign-up form
+        return "signupform"; // Return signupform.html for the sign-up form
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@ModelAttribute("user") @Validated User user, BindingResult result) {
         if (result.hasErrors()) {
-            return "signup"; // Return to the sign-up form with validation errors
+            return "signupform"; // Return signupform.html with validation errors
         }
         if (userService.findById(user.getUserId()) != null) {
             // Email already exists, add error message and return to sign-up form
             result.rejectValue("email", "error.user", "Email already registered");
-            return "signup";
+            return "signupform";
         }
-        // Encrypt password before saving
-        user.setMdp(passwordEncoder.encode(user.getMdp()));
         userService.registerUser(user);
         return "redirect:/login"; // Redirect to the login page after successful registration
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginForm() {
-        return "login"; // Assuming you have a login.html template for the login form
+        return "loginform"; // Return loginform.html for the login form
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate(); // Invalidate session
         return "redirect:/"; // Redirect to the home page after logout
-    }*/
+    }
 }
+
 

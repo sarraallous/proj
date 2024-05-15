@@ -9,32 +9,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class IndexController {
+
     @Autowired
     private hotelservice hotService;
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index()
-    {
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
         return "index";
     }
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {
-        return "about"; // Assuming you have an "about.html" file in your templates directory
+        return "about";
     }
+
     @RequestMapping(value = "/events", method = RequestMethod.GET)
     public String events() {
-        return "events"; // Assuming you have an "about.html" file in your templates directory
+        return "events";
     }
+
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact() {
-        return "contact"; // Assuming you have an "about.html" file in your templates directory
+        return "contact";
     }
-    @RequestMapping(value = "/signupform", method = RequestMethod.GET)
-    public String signupform() {
-        return "signupform"; // Assuming you have an "about.html" file in your templates directory
-    }
-    @RequestMapping(value = "/loginform", method = RequestMethod.GET)
-    public String loginform() {
-        return "loginform"; // Assuming you have an "about.html" file in your templates directory
-    }
+
 }
+
