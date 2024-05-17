@@ -31,10 +31,11 @@ public class IndexController {
     }
     @RequestMapping(value = "/signupform", method = RequestMethod.GET)
     public String signupform() {
-        return "signupform"; // Assuming you have an "about.html" file in your templates directory
+        return "register"; // Assuming you have an "about.html" file in your templates directory
     }
+
     @RequestMapping(value = "/loginform", method = RequestMethod.GET)
     public String loginform() {
-        return "loginform"; // Assuming you have an "about.html" file in your templates directory
+        return "login"; // Assuming you have an "about.html" file in your templates directory
     }
 }

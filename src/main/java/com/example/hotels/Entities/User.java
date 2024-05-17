@@ -8,8 +8,8 @@ import lombok.ToString;
 import java.util.Set;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @ToString
 public class User {
     @Id
@@ -21,10 +21,16 @@ public class User {
     private String email;
     private String numTel;
     private boolean etat;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Reservation> reservation;
 
-    public boolean getEtat() {
-        return etat;
+    public User() {
+    }
+
+    public User(int userId, String nom, String mdp) {
+        this.userId = userId;
+        this.nom = nom;
+        this.mdp = mdp;
     }
 }

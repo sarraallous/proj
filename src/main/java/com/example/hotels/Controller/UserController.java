@@ -2,53 +2,53 @@ package com.example.hotels.Controller;
 
 import com.example.hotels.Entities.User;
 import com.example.hotels.Services.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Objects;
 
 @Controller
 public class UserController {
 
-   /* @Autowired
+    @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String showSignUpForm(Model model) {
-        model.addAttribute("user", new User());
-        return "signup"; // Assuming you have a signup.html template for the sign-up form
+    @GetMapping("/login")
+    public ModelAndView login() {
+        ModelAndView mav = new ModelAndView("login");
+        mav.addObject("user", new User());
+        return mav;
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signUp(@ModelAttribute("user") @Validated User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return "signup"; // Return to the sign-up form with validation errors
+    @PostMapping("/login")
+    public String login(@ModelAttribute("user") User user) {
+        User oauthUser = userService.login(user.getNom(), user.getMdp());
+
+        if (Objects.nonNull(oauthUser)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/login";
         }
-        if (userService.findById(user.getUserId()) != null) {
-            // Email already exists, add error message and return to sign-up form
-            result.rejectValue("email", "error.user", "Email already registered");
-            return "signup";
-        }
-        // Encrypt password before saving
-        user.setMdp(passwordEncoder.encode(user.getMdp()));
+    }
+    @GetMapping("/register")
+    public ModelAndView showRegisterForm() {
+        ModelAndView mav = new ModelAndView("register");
+        mav.addObject("user", new User());
+        return mav;
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute("user") User user) {
         userService.registerUser(user);
-        return "redirect:/login"; // Redirect to the login page after successful registration
+        return "redirect:/login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLoginForm() {
-        return "login"; // Assuming you have a login.html template for the login form
-    }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate(); // Invalidate session
-        return "redirect:/"; // Redirect to the home page after logout
-    }*/
+    @PostMapping("/logout")
+    public String logout() {
+        return "redirect:/login";
+    }
 }
-

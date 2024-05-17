@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+    <table width="100%" height="100%" border="0" cellpadding="0" align="center">
+        <tr>
+            <td align="center" valign="middle">
+                <table class="table-bordered" width="350" border="0" cellpadding="3" cellspacing="3" bgcolor="#ffffff">
+                    <form th:action="@{/register}" th:object="${user}" method="post">
+                        <tr>
+                            <td height="25" colspan="2" align="left" valign="middle" bgcolor="#ffffff" class="style2">
+                                <div align="center">
+                                    <strong>User Registration</strong>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nom</td>
+                            <td>
+                                <input type="text" th:field="*{nom}" class="form-control" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Prenom</td>
+                            <td>
+                                <input type="text" th:field="*{prenom}" class="form-control" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <input type="email" th:field="*{email}" class="form-control" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Numéro de Téléphone</td>
+                            <td>
+                                <input type="text" th:field="*{numTel}" class="form-control" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mot de passe</td>
+                            <td><input type="password" th:field="*{mdp}" class="form-control" required /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="submit" class="btn btn-info" align="right">Register</button>
+                            </td>
+                        </tr>
+                    </form>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
