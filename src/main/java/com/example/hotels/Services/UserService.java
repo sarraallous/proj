@@ -54,4 +54,10 @@ public class UserService {
     public User registerUser(User user) {
         return addUser(user);
     }
+    public User authenticate(String nom, String mdp) {
+        // Find user by nom and mdp
+        User user = userRepository.findByNomAndMdp(nom, mdp);
+        // Return user if found, otherwise return null
+        return user;
+    }
 }
