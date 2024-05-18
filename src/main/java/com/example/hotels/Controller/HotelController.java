@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/hotel")
+@RequestMapping("/hotels")
 public class HotelController {
 
     @Autowired
@@ -22,8 +22,9 @@ public class HotelController {
     public String getHotels(Model model) {
         List<Hotel> listHotels = hotelService.findAll();
         model.addAttribute("hotels", listHotels);
-        return "hotel/listhotels"; // Le nom de votre fichier listhotels.html
+        return "hotels"; // Ensure this matches the name of your HTML file
     }
+
 
     @PostMapping("/addHotel")
     public String addHotel(@ModelAttribute Hotel hotel, RedirectAttributes redirectAttributes) {

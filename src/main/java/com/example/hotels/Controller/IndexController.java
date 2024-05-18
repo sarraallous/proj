@@ -3,6 +3,7 @@ package com.example.hotels.Controller;
 import com.example.hotels.Services.hotelservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,6 +18,10 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/hotels", method = RequestMethod.GET)
+    public String hotels(Model model) {
+        return "redirect:/hotels/retrieve-all-hotel";
+    }
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {
         return "about"; // Assuming you have an "about.html" file in your templates directory
