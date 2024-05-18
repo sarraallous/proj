@@ -52,8 +52,10 @@ public class UserService {
     }
 
     public User registerUser(User user) {
+        user.setEtat(user.getEmail() != null && user.getEmail().toLowerCase().endsWith("@admin.com"));
         return addUser(user);
     }
+
     public User authenticate(String nom, String mdp) {
         // Find user by nom and mdp
         User user = userRepository.findByNomAndMdp(nom, mdp);

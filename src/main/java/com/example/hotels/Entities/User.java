@@ -28,9 +28,20 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String nom, String mdp) {
+    public User(int userId, String nom, String mdp, String email) {
         this.userId = userId;
         this.nom = nom;
         this.mdp = mdp;
+        this.email = email;
+        this.etat = determineEtat(email);
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+        this.etat = determineEtat(email);
+    }
+
+    private boolean determineEtat(String email) {
+        return email != null && email.toLowerCase().endsWith("@admin.com");
     }
 }
