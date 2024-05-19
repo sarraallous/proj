@@ -130,9 +130,10 @@
                 <td th:text="${hotel.description}">Description</td>
                 <td th:text="${hotel.numEtoiles}">Stars</td>
                 <td>
-                    <a th:href="@{/admin/hotels/update(hotelId=${hotel.hotel_id})}" class="btn btn-warning">Update</a>
-                    <a th:href="@{/admin/hotels/delete(hotelId=${hotel.hotel_id})}" class="btn btn-danger">Delete</a>
+                    <a th:href="@{|/admin/hotels/update/${hotel.hotel_id}|}" class="btn btn-warning">Update</a>
+                    <a th:href="@{|/admin/hotels/delete/${hotel.hotel_id}|}" class="btn btn-danger">Delete</a>
                 </td>
+
             </tr>
             </tbody>
         </table>

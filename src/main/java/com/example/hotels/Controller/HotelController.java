@@ -39,7 +39,7 @@ public class HotelController {
 
     @GetMapping("/delete/{hotelId}") // Changed the mapping to include path variable
     public String deleteHotel(@PathVariable("hotelId") int id) {
-        hotelService.DeleteHotel(id);
+        hotelService.deleteHotel(id);
         return "redirect:/hotels/retrieve-all-hotel"; // Adjusted the redirect URL
     }
 

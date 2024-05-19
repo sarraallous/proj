@@ -9,43 +9,33 @@ import java.util.List;
 
 @Service
 public class hotelservice {
+
     @Autowired
-    HotelRepository hotelRepository;
-    public List<Hotel> findAll()
-    {
+    private HotelRepository hotelRepository;
+
+    public List<Hotel> findAll() {
         return hotelRepository.findAll();
     }
 
-    public Hotel findById(int id)
-    {
-       Hotel hotel = hotelRepository.findById(id);
-        return hotel;
+    public void addHotel(Hotel hotel) {
+        hotelRepository.save(hotel);
     }
 
-    public Hotel addHotel(Hotel ee) {
-        Hotel co = hotelRepository.save(ee);
-        return ee;
-    }
-    public void DeleteHotel(int id) {
-
+    public void deleteHotel(int id) {
         hotelRepository.deleteById(id);
-
     }
 
-    public Hotel updateHotel(int id , Hotel e) {
+    public Hotel findById(int id) {
+        return hotelRepository.findById(id);
+    }
 
-        Hotel ht = hotelRepository.findById(id);
-        ht.setHotel_id(id);
-        ht.setNom(e.getNom());
-        ht.setAdresse(e.getAdresse());
-        ht.setPays(e.getPays());
-        ht.setVille(e.getVille());
-        ht.setDescription(e.getDescription());
-        ht.setNumEtoiles(e.getNumEtoiles());
-        ht.setChambre(e.getChambre());
-        hotelRepository.save(ht);
-        return ht;
-
+    public void updateHotel(int id, Hotel hotel) {
+        Hotel existingHotel = findById(id);
+        if (existingHotel != null) {
+            existingHotel.setNom(hotel.getNom());
+            existingHotel.setAdresse(hotel.getAdresse());
+            existingHotel.setDescription(hotel.getDescription());
+            hotelRepository.save(existingHotel);
+        }
     }
 }
-

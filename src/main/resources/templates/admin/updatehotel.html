@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Hotel</title>
-    <!-- Add any CSS links or stylesheets here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Update Hotel</h1>
-<form action="/admin/hotels/update/{hotelId}" method="post">
-    <input type="hidden" name="hotelId" th:value="${hotel.id}">
-    <!-- Add input fields for updating hotel details -->
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" th:value="${hotel.name}">
-    <!-- Add more input fields as needed -->
-    <button type="submit">Update Hotel</button>
-</form>
-<!-- Add any additional content or scripts here -->
+<div class="container">
+    <h2>Update Hotel</h2>
+    <form th:action="@{/admin/hotels/update/{hotelId}(hotelId=${hotel.hotel_id})}" th:object="${hotel}" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter hotel name">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" th:field="*{address}" class="form-control" id="address" placeholder="Enter hotel address">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea th:field="*{description}" class="form-control" id="description" placeholder="Enter hotel description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
 </body>
 </html>

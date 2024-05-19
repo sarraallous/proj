@@ -104,7 +104,7 @@
 <!-- END section -->
 <div class="container">
     <h1>Add Hotel</h1>
-    <form th:action="@{/admin/hotels/addHotel}" th:object="${hotel}" method="post">
+    <form action="/admin/hotels/add" th:object="${hotel}" method="post">
         <div class="form-group">
             <label for="nom">Name</label>
             <input type="text" id="nom" th:field="*{nom}" class="form-control"/>
@@ -167,7 +167,7 @@
             </div>
             <div class="col-md-3 mb-5">
                 <p>Sign up for our newsletter</p>
-                <form action="#" class="footer-newsletter">
+                <form action="/admin/hotels/update/{hotelId}" class="footer-newsletter">
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Email...">
                         <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
