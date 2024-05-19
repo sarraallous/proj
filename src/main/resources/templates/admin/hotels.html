@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sogo Hotel by Colorlib.com</title>
+    <title>Add Hotel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,9 +31,7 @@
         <div class="row align-items-center">
             <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="/">Sogo Hotel</a></div>
             <div class="col-6 col-lg-8">
-
-
-                <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                <div class="site-menu-toggle js-site-menu-toggle" data-aos="fade">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -47,7 +45,7 @@
                                 <div class="col-md-6 mx-auto">
                                     <ul class="list-unstyled menu">
                                         <li><a href="/">Home</a></li>
-                                        <li class="active"><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
+                                        <li><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/events">Events</a></li>
                                         <li><a href="/contact">Contact</a></li>
@@ -59,7 +57,7 @@
                                             <li th:if="${loggedInUser.etat}">
                                                 <a href="/admin/hotels/add">Add Hotel</a>
                                             </li>
-                                            <li th:if="${loggedInUser.etat}">
+                                            <li th:if="${loggedInUser.etat}" class="active">
                                                 <a href="/admin/hotels/retrieve-all-hotel">Admin Hotel List</a>
                                             </li>
                                             <li th:if="${!loggedInUser.etat}">
@@ -76,21 +74,20 @@
                             </div>
                         </div>
                     </nav>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 </header>
 <!-- END head -->
 
-
-<section class="site-hero inner-page overlay" style="background-image: url(/images/hero_4.jpg)" data-stellar-background-ratio="0.5">
+<section class="site-hero inner-page overlay" style="background-image: url(../../static/images/hero_4.jpg)" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center">
             <div class="col-md-10 text-center" data-aos="fade">
                 <h1 class="heading mb-3">Hotels</h1>
                 <ul class="custom-breadcrumbs mb-4">
-                    <li><a href="/index">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li>&bullet;</li>
                     <li>Hotels</li>
                 </ul>
@@ -104,30 +101,44 @@
         </div>
     </a>
 </section>
+<!-- END section -->
 
-<section class="section blog-post-entry bg-light">
-    <div class="container slider-item">
-<div class="container">
-    <div class="row">
-        <div th:each="hotel : ${hotels}" class="col-md-6 mb-4" >
-            <div class="card h-100">
-                <img th:src="@{/images/} + ${hotel.image}" alt="Image of Hotel">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${hotel.getNom()}"></h5>
-                    <p class="card-text" th:text="${hotel.getDescription()}"></p>
-                    <ul class="list-unstyled">
-                        <li th:text="${hotel.getAdresse()}"></li>
-                        <li th:text="${hotel.getVille()}"></li>
-                        <li th:text="${hotel.getPays()}"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+<section class="section contact-section" id="next">
+    <div class="container">
+        <h1 class="heading mb-3">Manage Hotels</h1>
+        <a href="/admin/hotels/add" class="btn btn-success mb-3">Add New Hotel</a>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Description</th>
+                <th>Stars</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hotel : ${hotels}">
+                <td th:text="${hotel.hotel_id}">1</td>
+                <td th:text="${hotel.nom}">Hotel Name</td>
+                <td th:text="${hotel.adresse}">Address</td>
+                <td th:text="${hotel.ville}">City</td>
+                <td th:text="${hotel.pays}">Country</td>
+                <td th:text="${hotel.description}">Description</td>
+                <td th:text="${hotel.numEtoiles}">Stars</td>
+                <td>
+                    <a th:href="@{|/admin/hotels/update/${hotel.hotel_id}|}" class="btn btn-warning">Update</a>
+                    <a th:href="@{|/admin/hotels/delete/${hotel.hotel_id}|}" class="btn btn-danger">Delete</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
     </div>
-</div>
-            </div>
 </section>
-<!-- End Hotel Cards -->
 
 <footer class="section footer-section">
     <div class="container">
@@ -182,22 +193,22 @@
     </div>
 </footer>
 
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/jquery.stellar.min.js"></script>
-<script src="/js/jquery.fancybox.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/aos.js"></script>
+<script src="js/aos.js"></script>
 
-<script src="/js/bootstrap-datepicker.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
 <script src="js/jquery.timepicker.min.js"></script>
 
 
 
-<script src="/js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

@@ -47,13 +47,27 @@
                                 <div class="col-md-6 mx-auto">
                                     <ul class="list-unstyled menu">
                                         <li><a href="/">Home</a></li>
-                                        <li><a href="#">Hotels</a></li>
+                                        <li><a href="/hotels">Hotels</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/events">Events</a></li>
                                         <li><a href="/contact">Contact</a></li>
-                                        <li><a href="/register">Sign Up</a></li>
-                                        <li class="active"><a href="/login">Sign In </a></li>
-                                        <li><a href="#">Reservation</a></li>
+                                        <div th:if="${loggedInUser == null}">
+                                            <li><a href="/register">Sign Up</a></li>
+                                            <li class="active"><a href="/login">Sign In</a></li>
+                                        </div>
+                                        <div th:if="${loggedInUser != null}">
+                                            <li th:if="${loggedInUser.etat}">
+                                                <a href="/admin/hotels/add">Add Hotel</a>
+                                            </li>
+                                            <li th:if="${!loggedInUser.etat}">
+                                                <a href="#">My Reservations</a>
+                                            </li>
+                                            <li>
+                                                <form th:action="@{/logout}" method="post" style="display: inline;">
+                                                    <button type="submit" class="btn btn-link" style="padding: 0;">Sign Out</button>
+                                                </form>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>

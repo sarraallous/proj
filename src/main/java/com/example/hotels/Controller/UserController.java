@@ -22,6 +22,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        Integer userId = (Integer) httpSession.getAttribute("userId");
+        if (userId != null) {
+            User loggedInUser = userService.findById(userId);
+            model.addAttribute("loggedInUser", loggedInUser);
+        }
+    }
     @GetMapping("/login")
     public ModelAndView showLoginForm() {
         ModelAndView mav = new ModelAndView("login");
@@ -89,4 +97,13 @@ public class UserController {
         }
         return "index"; // Assuming your index page is named "index.html"
     }
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        Integer userId = (Integer) httpSession.getAttribute("userId");
+        if (userId != null && userService.isAdmin(userId)) {
+            return "admin"; // Ensure you have an admin.html template
+        }
+        return "redirect:/"; // Redirect non-admin users to the home page
+    }
+
 }

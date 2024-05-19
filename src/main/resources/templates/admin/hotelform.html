@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sogo Hotel by Colorlib.com</title>
+    <title>Add Hotel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,9 +31,7 @@
         <div class="row align-items-center">
             <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="/">Sogo Hotel</a></div>
             <div class="col-6 col-lg-8">
-
-
-                <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                <div class="site-menu-toggle js-site-menu-toggle" data-aos="fade">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -47,7 +45,7 @@
                                 <div class="col-md-6 mx-auto">
                                     <ul class="list-unstyled menu">
                                         <li><a href="/">Home</a></li>
-                                        <li class="active"><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
+                                        <li><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/events">Events</a></li>
                                         <li><a href="/contact">Contact</a></li>
@@ -56,7 +54,7 @@
                                             <li><a href="/login">Sign In</a></li>
                                         </div>
                                         <div th:if="${loggedInUser != null}">
-                                            <li th:if="${loggedInUser.etat}">
+                                            <li th:if="${loggedInUser.etat}" class="active">
                                                 <a href="/admin/hotels/add">Add Hotel</a>
                                             </li>
                                             <li th:if="${loggedInUser.etat}">
@@ -76,23 +74,22 @@
                             </div>
                         </div>
                     </nav>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 </header>
 <!-- END head -->
 
-
-<section class="site-hero inner-page overlay" style="background-image: url(/images/hero_4.jpg)" data-stellar-background-ratio="0.5">
+<section class="site-hero inner-page overlay" style="background-image: url(images/hero_4.jpg)" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center">
             <div class="col-md-10 text-center" data-aos="fade">
-                <h1 class="heading mb-3">Hotels</h1>
+                <h1 class="heading mb-3">Add Hotel</h1>
                 <ul class="custom-breadcrumbs mb-4">
-                    <li><a href="/index">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li>&bullet;</li>
-                    <li>Hotels</li>
+                    <li>Add Hotel</li>
                 </ul>
             </div>
         </div>
@@ -104,31 +101,45 @@
         </div>
     </a>
 </section>
-
-<section class="section blog-post-entry bg-light">
-    <div class="container slider-item">
+<!-- END section -->
 <div class="container">
-    <div class="row">
-        <div th:each="hotel : ${hotels}" class="col-md-6 mb-4" >
-            <div class="card h-100">
-                <img th:src="@{/images/} + ${hotel.image}" alt="Image of Hotel">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${hotel.getNom()}"></h5>
-                    <p class="card-text" th:text="${hotel.getDescription()}"></p>
-                    <ul class="list-unstyled">
-                        <li th:text="${hotel.getAdresse()}"></li>
-                        <li th:text="${hotel.getVille()}"></li>
-                        <li th:text="${hotel.getPays()}"></li>
-                    </ul>
-                </div>
-            </div>
+    <h1>Add Hotel</h1>
+    <form action="/admin/hotels/add" th:object="${hotel}" method="post">
+        <div class="form-group">
+            <label for="nom">Name</label>
+            <input type="text" id="nom" th:field="*{nom}" class="form-control"/>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="adresse">Address</label>
+            <input type="text" id="adresse" th:field="*{adresse}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="ville">City</label>
+            <input type="text" id="ville" th:field="*{ville}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="pays">Country</label>
+            <select id="pays" th:field="*{pays}" class="form-control">
+                <option th:each="p : ${T(com.example.hotels.Entities.Pays).values()}" th:value="${p}" th:text="${p}">Country</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" th:field="*{description}" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="numEtoiles">Stars</label>
+            <select id="numEtoiles" th:field="*{numEtoiles}" class="form-control">
+                <option th:each="e : ${T(com.example.hotels.Entities.Etoiles).values()}" th:value="${e}" th:text="${e}">Stars</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="image">Image URL</label>
+            <input type="text" id="image" th:field="*{image}" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Hotel</button>
+    </form>
 </div>
-            </div>
-</section>
-<!-- End Hotel Cards -->
-
 <footer class="section footer-section">
     <div class="container">
         <div class="row mb-4">
@@ -156,7 +167,7 @@
             </div>
             <div class="col-md-3 mb-5">
                 <p>Sign up for our newsletter</p>
-                <form action="#" class="footer-newsletter">
+                <form action="/admin/hotels/update/{hotelId}" class="footer-newsletter">
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Email...">
                         <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
@@ -182,22 +193,22 @@
     </div>
 </footer>
 
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/jquery.stellar.min.js"></script>
-<script src="/js/jquery.fancybox.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/aos.js"></script>
+<script src="js/aos.js"></script>
 
-<script src="/js/bootstrap-datepicker.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
 <script src="js/jquery.timepicker.min.js"></script>
 
 
 
-<script src="/js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
