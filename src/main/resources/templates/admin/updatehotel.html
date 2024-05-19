@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Hotel</title>
+    <!-- Add any CSS links or stylesheets here -->
+</head>
+<body>
+<h1>Update Hotel</h1>
+<form action="/admin/hotels/update/{hotelId}" method="post">
+    <input type="hidden" name="hotelId" th:value="${hotel.id}">
+    <!-- Add input fields for updating hotel details -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="${hotel.name}">
+    <!-- Add more input fields as needed -->
+    <button type="submit">Update Hotel</button>
+</form>
+<!-- Add any additional content or scripts here -->
+</body>
+</html>

@@ -1,28 +1,28 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sogo Hotel by Colorlib.com</title>
+    <title>Add Hotel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/aos.css">
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-    <link rel="stylesheet" href="css/fancybox.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/css/fancybox.min.css">
 
-    <link rel="stylesheet" href="css/fonts/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/fonts/fontawesome/css/font-awesome.min.css">
 
     <!-- Theme Style -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -31,9 +31,7 @@
         <div class="row align-items-center">
             <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="/">Sogo Hotel</a></div>
             <div class="col-6 col-lg-8">
-
-
-                <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                <div class="site-menu-toggle js-site-menu-toggle" data-aos="fade">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -47,17 +45,20 @@
                                 <div class="col-md-6 mx-auto">
                                     <ul class="list-unstyled menu">
                                         <li><a href="/">Home</a></li>
-                                        <li><a href="/hotels">Hotels</a></li>
+                                        <li><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/events">Events</a></li>
                                         <li><a href="/contact">Contact</a></li>
                                         <div th:if="${loggedInUser == null}">
-                                            <li class="active"><a href="/register">Sign Up</a></li>
+                                            <li><a href="/register">Sign Up</a></li>
                                             <li><a href="/login">Sign In</a></li>
                                         </div>
                                         <div th:if="${loggedInUser != null}">
                                             <li th:if="${loggedInUser.etat}">
                                                 <a href="/admin/hotels/add">Add Hotel</a>
+                                            </li>
+                                            <li th:if="${loggedInUser.etat}" class="active">
+                                                <a href="/admin/hotels/retrieve-all-hotel">Admin Hotel List</a>
                                             </li>
                                             <li th:if="${!loggedInUser.etat}">
                                                 <a href="#">My Reservations</a>
@@ -84,11 +85,11 @@
     <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center">
             <div class="col-md-10 text-center" data-aos="fade">
-                <h1 class="heading mb-3">Sign Up</h1>
+                <h1 class="heading mb-3">Hotels</h1>
                 <ul class="custom-breadcrumbs mb-4">
                     <li><a href="/">Home</a></li>
                     <li>&bullet;</li>
-                    <li>Sign Up</li>
+                    <li>Hotels</li>
                 </ul>
             </div>
         </div>
@@ -101,70 +102,40 @@
     </a>
 </section>
 <!-- END section -->
+
 <section class="section contact-section" id="next">
     <div class="container">
-        <div class="row">
-            <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
-                <form th:action="@{/register}" th:object="${user}" method="post" class="bg-white p-md-5 p-4 mb-5 border">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="text-black font-weight-bold" for="nom">Nom</label>
-                            <input type="text" th:field="*{nom}" class="form-control" required />
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="text-black font-weight-bold" for="prenom">Prenom</label>
-                            <input type="text" th:field="*{prenom}" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label class="text-black font-weight-bold" for="email">Email</label>
-                            <input type="email" th:field="*{email}" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label class="text-black font-weight-bold" for="numTel">Numéro de Téléphone</label>
-                            <input type="text" th:field="*{numTel}" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label class="text-black font-weight-bold" for="mdp">Mot de passe</label>
-                            <input type="password" th:field="*{mdp}" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <input type="submit" value="Register" class="btn btn-primary text-white py-3 px-5 font-weight-bold">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
-                <div class="row">
-                    <div class="col-md-10 ml-auto contact-info">
-                        <p><span class="d-block">Address:</span> <span class="text-black"> 98 West 21th Street, Suite 721 New York NY 10016</span></p>
-                        <p><span class="d-block">Phone:</span> <span class="text-black"> (+1) 435 3533</span></p>
-                        <p><span class="d-block">Email:</span> <span class="text-black"> info@yourdomain.com</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="section bg-image overlay" style="background-image: url('../../static/images/hero_4.jpg');">
-    <div class="container" >
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6 text-center mb-4 mb-md-0 text-md-left" data-aos="fade-up">
-                <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
-            </div>
-            <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
-                <a href="reservation.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
-            </div>
-        </div>
+        <h1 class="heading mb-3">Manage Hotels</h1>
+        <a href="/admin/hotels/add" class="btn btn-success mb-3">Add New Hotel</a>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Description</th>
+                <th>Stars</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hotel : ${hotels}">
+                <td th:text="${hotel.hotel_id}">1</td>
+                <td th:text="${hotel.nom}">Hotel Name</td>
+                <td th:text="${hotel.adresse}">Address</td>
+                <td th:text="${hotel.ville}">City</td>
+                <td th:text="${hotel.pays}">Country</td>
+                <td th:text="${hotel.description}">Description</td>
+                <td th:text="${hotel.numEtoiles}">Stars</td>
+                <td>
+                    <a th:href="@{/admin/hotels/update(hotelId=${hotel.hotel_id})}" class="btn btn-warning">Update</a>
+                    <a th:href="@{/admin/hotels/delete(hotelId=${hotel.hotel_id})}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 
@@ -240,9 +211,3 @@
 <script src="js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-

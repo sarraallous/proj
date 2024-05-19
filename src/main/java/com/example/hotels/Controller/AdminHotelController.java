@@ -11,48 +11,47 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/hotels") // Changed the request mapping
-public class HotelController {
+@RequestMapping("/admin/hotels") // Changed the base request mapping for admin hotels
+public class AdminHotelController {
 
     @Autowired
     private hotelservice hotelService;
 
-    @GetMapping("/retrieve-all-hotel") // Changed the mapping to /retrieve-all-hotel
+    @GetMapping("/retrieve-all-hotel")
     public String getHotels(Model model) {
         List<Hotel> listHotels = hotelService.findAll();
         model.addAttribute("hotels", listHotels);
-        return "hotels"; // Adjusted the return URL
+        return "admin/hotels"; // Assuming "hotels" is your view for listing hotels
     }
-
     @GetMapping("/add") // Added GET handler method for /add
     public String showAddForm(Model model) {
         model.addAttribute("hotel", new Hotel());
-        return "hotelform";
+        return "admin/hotelform";
     }
-
     @PostMapping("/add") // Changed the mapping to /add
     public String addHotel(@ModelAttribute Hotel hotel, RedirectAttributes redirectAttributes) {
         hotelService.addHotel(hotel);
         redirectAttributes.addFlashAttribute("successMessage", "Hotel added successfully!");
-        return "redirect:/hotels/retrieve-all-hotel"; // Adjusted the redirect URL
+        return "redirect:/admin/hotels/retrieve-all-hotel"; // Redirecting to the admin hotels listing
     }
 
     @GetMapping("/delete/{hotelId}") // Changed the mapping to include path variable
     public String deleteHotel(@PathVariable("hotelId") int id) {
         hotelService.DeleteHotel(id);
-        return "redirect:/hotels/retrieve-all-hotel"; // Adjusted the redirect URL
+        return "redirect:/admin/hotels/retrieve-all-hotel"; // Redirecting to the admin hotels listing
     }
 
     @GetMapping("/update/{hotelId}") // Changed the mapping to include path variable
     public String updateHotel(@PathVariable("hotelId") int id, Model model) {
         Hotel hotel = hotelService.findById(id);
         model.addAttribute("hotel", hotel);
-        return "updatehotel"; // Adjusted the return URL
+        return "admin/updatehotel"; // Assuming "updatehotel" is your update hotel form view
     }
 
     @PostMapping("/update/{hotelId}") // Changed the mapping to include path variable
     public String updateHotel(@PathVariable("hotelId") int id, @ModelAttribute Hotel hotel) {
         hotelService.updateHotel(id, hotel); // Corrected the parameter passed to the service method
-        return "redirect:/hotels/retrieve-all-hotel"; // Adjusted the redirect URL
+        return "redirect:/admin/hotels/retrieve-all-hotel"; // Redirecting to the admin hotels listing
     }
 }
+
