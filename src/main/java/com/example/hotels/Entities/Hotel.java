@@ -27,5 +27,17 @@ public class Hotel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy="hotel")
     private Set<Chambre> chambre;
 
+    public String getImage() {
+        if (this.image.startsWith("http") || this.image.startsWith("data:image")) {
+            return this.image;
+        } else if (!this.image.isEmpty()) {
+            return this.image;
+        } else {
+            return "Default"; // return a default image if the image does not exist
+        }
+    }
 
+    public Hotel() {
+        this.image = "";
+    }
 }

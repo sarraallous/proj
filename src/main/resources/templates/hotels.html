@@ -105,16 +105,29 @@
     </a>
 </section>
 
+
+<div class="container">
+    <form th:action="@{/hotels/filter}" method="get">
+        <div class="form-group">
+            <label for="paysFilter">Filter by pays:</label>
+            <select id="paysFilter" name="pays" class="form-control">
+                <option value="all" th:selected="${selectedPays == null}">All</option>
+                <option th:each="pays : ${allPays}" th:value="${pays.name()}" th:text="${pays.name()}" th:selected="${selectedPays == pays.name()}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+
 <section class="section blog-post-entry bg-light">
     <div class="container slider-item">
 <div class="container">
     <div class="row">
         <div th:each="hotel : ${hotels}" class="col-md-6 mb-4" >
             <div class="card h-100">
-                <img class="card-img-top" th:src="@{/images/{image}(image=${hotel.getImage()})}" alt="Image of Hotel">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${hotel.getNom()}"></h5>
-                    <p class="card-text" th:text="${hotel.getDescription()}"></p>
+                <img class="card-img-top" th:src="${hotel.getImage()}" alt="Image of Hotel">
+                <h2 class="card-text" th:text="${hotel.getNom()}"></h2>
+                <p class="card-text" th:text="${hotel.getDescription()}"></p>
                     <ul class="list-unstyled">
                         <li th:text="${hotel.getAdresse()}"></li>
                         <li th:text="${hotel.getVille()}"></li>

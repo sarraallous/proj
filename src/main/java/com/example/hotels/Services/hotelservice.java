@@ -1,6 +1,7 @@
 package com.example.hotels.Services;
 
 import com.example.hotels.Entities.Hotel;
+import com.example.hotels.Entities.Pays;
 import com.example.hotels.Repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,11 @@ public class hotelservice {
         }
     }
 
+    public List<Hotel> findBypays(String pays) {
+        String capitalizedPays = pays.substring(0, 1).toUpperCase() + pays.substring(1).toLowerCase();
+        Pays paysEnum = Pays.valueOf(capitalizedPays);
+        return hotelRepository.findByPays(paysEnum);
+    }
 
 
 }
