@@ -9,6 +9,9 @@ import java.util.List;
 @Repository
 public interface ChambreRepository extends JpaRepository<Chambre,Integer> {
 
+  
     public List<Chambre> findAll();
     public Chambre findById(int id);
+
+
 }

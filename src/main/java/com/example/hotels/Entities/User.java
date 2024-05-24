@@ -44,4 +44,6 @@ public class User {
     private boolean determineEtat(String email) {
         return email != null && email.toLowerCase().endsWith("@admin.com");
     }
+
+
 }

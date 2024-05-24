@@ -25,9 +25,8 @@ public class ReservationService {
         return reservationRepository.findByUserUserId(id);
     }
 
-    public Reservation addReservation(Reservation r){
-        Reservation re = reservationRepository.save(r);
-        return r;
+    public Reservation addReservation(Reservation reservation) {
+        return reservationRepository.save(reservation);
     }
 
     public void DeleteReservation(int id){
@@ -46,4 +45,6 @@ public class ReservationService {
         return res;
     }
 
+    public void deleteReservation(int id) {
+    }
 }
