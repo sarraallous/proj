@@ -40,4 +40,17 @@ public class Hotel {
     public Hotel() {
         this.image = "";
     }
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "hotel_id=" + hotel_id +
+                ", nom='" + nom + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", ville='" + ville + '\'' +
+                ", image='" + image + '\'' +
+                ", pays=" + pays +
+                ", description='" + description + '\'' +
+                ", numEtoiles=" + numEtoiles +
+                '}';
+    }
 }

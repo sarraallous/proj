@@ -1,7 +1,6 @@
 package com.example.hotels.Controller;
 
 import com.example.hotels.Entities.Chambre;
-import com.example.hotels.Entities.Hotel;
 import com.example.hotels.Repository.ChambreRepository;
 import com.example.hotels.Services.ChambreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class ChambreController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteChambre(@PathVariable int id) {
-        chambreService.DeleteChambre(id);
+        chambreService.deleteChambre(id);
     }
 
     @PutMapping("/update/{id}")

@@ -1,5 +1,6 @@
 package com.example.hotels.Controller;
 
+import com.example.hotels.Entities.Chambre;
 import com.example.hotels.Entities.Hotel;
 import com.example.hotels.Services.hotelservice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/hotels")
@@ -56,4 +58,60 @@ public class AdminHotelController {
         return "redirect:/admin/hotels/retrieve-all-hotel";
     }
 
+    @GetMapping("/{hotelId}/rooms")
+    public String getHotelRooms(@PathVariable("hotelId") int hotelId, Model model) {
+        Hotel hotel = hotelService.findById(hotelId); // Fetch the Hotel object by ID
+        if (hotel != null) {
+            List<Chambre> rooms = hotelService.findRoomsByHotelId(hotel);
+            model.addAttribute("rooms", rooms);
+            model.addAttribute("hotel", hotel); // Add the hotel object to the model
+            // Log the retrieved hotel object
+            System.out.println("Retrieved hotel: " + hotel);
+            return "admin/rooms";
+        } else {
+            // Handle case where hotel is not found for the given ID
+            // You can redirect to an error page or display an appropriate message
+            return "redirect:/admin/hotels/retrieve-all-hotel"; // Redirect to hotel list
+        }
+    }
+
+
+    @GetMapping("/{hotelId}/rooms/add")
+    public String showAddRoomForm(@PathVariable("hotelId") int hotelId, Model model) {
+        Hotel hotel = hotelService.findById(hotelId); // Fetch the Hotel object by ID
+        if (hotel != null) {
+            model.addAttribute("chambre", new Chambre());
+            model.addAttribute("hotel", hotel); // Add the hotel object to the model
+            return "admin/addroomform";
+        } else {
+            // Handle case where hotel is not found for the given ID
+            // You can redirect to an error page or display an appropriate message
+            return "redirect:/admin/hotels/retrieve-all-hotel"; // Redirect to hotel list
+        }
+    }
+
+    @PostMapping("/{hotelId}/rooms/add")
+    public String addRoom(@PathVariable("hotelId") int hotelId, @ModelAttribute Chambre chambre) {
+        hotelService.addRoomToHotel(hotelId, chambre);
+        return "redirect:/admin/hotels/{hotelId}/rooms";
+    }
+
+    @GetMapping("/{hotelId}/rooms/update/{roomId}")
+    public String showUpdateRoomForm(@PathVariable("hotelId") int hotelId, @PathVariable("roomId") int roomId, Model model) {
+        Optional<Chambre> chambre = Optional.ofNullable(hotelService.findRoomById(roomId));
+        model.addAttribute("chambre", chambre.orElse(null));
+        return "admin/updateroom";
+    }
+
+    @PostMapping("/{hotelId}/rooms/update/{roomId}")
+    public String updateRoom(@PathVariable("hotelId") int hotelId, @PathVariable("roomId") int roomId, @ModelAttribute Chambre chambre) {
+        hotelService.updateRoom(roomId, chambre);
+        return "redirect:/admin/hotels/{hotelId}/rooms";
+    }
+
+    @GetMapping("/{hotelId}/rooms/delete/{roomId}")
+    public String deleteRoom(@PathVariable("hotelId") int hotelId, @PathVariable("roomId") int roomId) {
+        hotelService.deleteRoom(roomId);
+        return "redirect:/admin/hotels/{hotelId}/rooms";
+    }
 }

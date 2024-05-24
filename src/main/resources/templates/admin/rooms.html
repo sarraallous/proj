@@ -106,38 +106,33 @@
 
 <section class="section contact-section" id="next">
     <div class="container">
-        <h1 class="heading mb-3">Manage Hotels</h1>
-        <a href="/admin/hotels/add" class="btn btn-success mb-3">Add New Hotel</a>
+        <h1 class="heading mb-3">Manage Rooms</h1>
+        <a th:href="@{|/admin/hotels/${hotel.hotel_id}/rooms/add|}" class="btn btn-primary">Add Room</a>
+
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
                 <th>Description</th>
-                <th>Stars</th>
+                <th>Disponible</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="hotel : ${hotels}">
-                <td th:text="${hotel.nom}">Hotel Name</td>
-                <td th:text="${hotel.adresse}">Address</td>
-                <td th:text="${hotel.ville}">City</td>
-                <td th:text="${hotel.pays}">Country</td>
-                <td th:text="${hotel.description}">Description</td>
-                <td th:text="${hotel.numEtoiles}">Stars</td>
+            <tr th:each="chambre : ${rooms}"> <!-- Change 'chambres' to 'rooms' -->
+                <td th:text="${chambre.description}">Description</td>
+                <td th:text="${chambre.disponible}">Disponible</td>
                 <td>
-                    <a th:href="@{|/admin/hotels/update/${hotel.hotel_id}|}" class="btn btn-warning">Update</a>
-                    <a th:href="@{|/admin/hotels/delete/${hotel.hotel_id}|}" class="btn btn-danger">Delete</a>
-                    <a th:if="${hotel != null}" th:href="@{|/admin/hotels/${hotel.hotel_id}/rooms|}" class="btn btn-primary">Rooms</a>
+                    <a th:href="@{|/admin/hotels/${chambre.hotel.hotel_id}/rooms/update/${chambre.id_room}|}" class="btn btn-warning">Update</a>
+                    <a th:href="@{|/admin/hotels/${chambre.hotel.hotel_id}/rooms/delete/${chambre.id_room}|}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
             </tbody>
         </table>
 
+
+        <a href="/admin/hotels/retrieve-all-hotel">Back to Hotels</a>
     </div>
+
 </section>
 
 <footer class="section footer-section">

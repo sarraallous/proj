@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sogo Hotel by Colorlib.com</title>
+    <title>Add Hotel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,9 +31,7 @@
         <div class="row align-items-center">
             <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="/">Sogo Hotel</a></div>
             <div class="col-6 col-lg-8">
-
-
-                <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                <div class="site-menu-toggle js-site-menu-toggle" data-aos="fade">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -59,7 +57,7 @@
                                             <li th:if="${loggedInUser.etat}">
                                                 <a href="/admin/hotels/add">Add Hotel</a>
                                             </li>
-                                            <li th:if="${loggedInUser.etat}">
+                                            <li th:if="${loggedInUser.etat}" class="active">
                                                 <a href="/admin/hotels/retrieve-all-hotel">Admin Hotel List</a>
                                             </li>
                                             <li th:if="${!loggedInUser.etat}">
@@ -80,17 +78,19 @@
             </div>
         </div>
     </div>
+    </div>
 </header>
 <!-- END head -->
+
 <section class="site-hero inner-page overlay" style="background-image: url(/images/hero_4.jpg)" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center">
             <div class="col-md-10 text-center" data-aos="fade">
-                <h1 class="heading mb-3">Hotels</h1>
+                <h1 class="heading mb-3">Add Room</h1>
                 <ul class="custom-breadcrumbs mb-4">
-                    <li><a href="/index">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li>&bullet;</li>
-                    <li>Hotels</li>
+                    <li>Add Room</li>
                 </ul>
             </div>
         </div>
@@ -104,41 +104,28 @@
 </section>
 <!-- END section -->
 
-<section class="section contact-section" id="next">
-    <div class="container">
-        <h1 class="heading mb-3">Manage Hotels</h1>
-        <a href="/admin/hotels/add" class="btn btn-success mb-3">Add New Hotel</a>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>Description</th>
-                <th>Stars</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="hotel : ${hotels}">
-                <td th:text="${hotel.nom}">Hotel Name</td>
-                <td th:text="${hotel.adresse}">Address</td>
-                <td th:text="${hotel.ville}">City</td>
-                <td th:text="${hotel.pays}">Country</td>
-                <td th:text="${hotel.description}">Description</td>
-                <td th:text="${hotel.numEtoiles}">Stars</td>
-                <td>
-                    <a th:href="@{|/admin/hotels/update/${hotel.hotel_id}|}" class="btn btn-warning">Update</a>
-                    <a th:href="@{|/admin/hotels/delete/${hotel.hotel_id}|}" class="btn btn-danger">Delete</a>
-                    <a th:if="${hotel != null}" th:href="@{|/admin/hotels/${hotel.hotel_id}/rooms|}" class="btn btn-primary">Rooms</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="container">
+    <h1>Add Room</h1>
+    <form th:action="@{|/admin/hotels/${hotel.hotel_id}/rooms/add|}" th:object="${chambre}" method="post">
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea th:field="*{description}" class="form-control" id="description" placeholder="Enter room description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="image">Image URL</label>
+            <input type="text" th:field="*{image}" class="form-control" id="image" placeholder="Enter image URL">
+        </div>
+        <div class="form-group">
+            <label for="typeroom">Type</label>
+            <select th:field="*{typeroom}" class="form-control" id="typeroom">
+                <option th:each="type : ${T(com.example.hotels.Entities.TypeRoom).values()}" th:value="${type}" th:text="${type}">Type</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Room</button>
+    </form>
 
-    </div>
-</section>
+</div>
+
 
 <footer class="section footer-section">
     <div class="container">
@@ -167,7 +154,7 @@
             </div>
             <div class="col-md-3 mb-5">
                 <p>Sign up for our newsletter</p>
-                <form action="#" class="footer-newsletter">
+                <form action="/admin/hotels/update/{hotelId}" class="footer-newsletter">
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Email...">
                         <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
@@ -192,7 +179,6 @@
         </div>
     </div>
 </footer>
-
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="/js/popper.min.js"></script>

@@ -27,6 +27,7 @@ public class Chambre {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Reservation> reserv;
     @ManyToOne
+    @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     // No-argument constructor
@@ -34,15 +35,25 @@ public class Chambre {
     }
 
     // Constructor
-    public Chambre(int id_room, String description, TypeRoom typeroom, boolean disponible) {
+    public Chambre(int id_room, String description, TypeRoom typeroom) {
         this.id_room = id_room;
         this.description = description;
         this.typeroom = typeroom;
-        this.disponible = disponible;
+        this.disponible = true;
     }
 
     // Getter for 'disponible'
     public boolean getDisponible() {
         return disponible;
+    }
+    @Override
+    public String toString() {
+        return "Chambre{" +
+                "id_room=" + id_room +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", typeroom=" + typeroom +
+                ", disponible=" + disponible +
+                '}';
     }
 }
