@@ -1,27 +1,203 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Update Hotel</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/aos.css">
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../css/jquery.timepicker.css">
+    <link rel="stylesheet" href="../css/fancybox.min.css">
+    <link rel="stylesheet" href="../css/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="../css/fonts/fontawesome/css/font-awesome.min.css">
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<header class="site-header js-site-header">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="/">Sogo Hotel</a></div>
+            <div class="col-6 col-lg-8">
+                <div class="site-menu-toggle js-site-menu-toggle" data-aos="fade">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="site-navbar js-site-navbar">
+                    <nav role="navigation">
+                        <div class="container">
+                            <div class="row full-height align-items-center">
+                                <div class="col-md-6 mx-auto">
+                                    <ul class="list-unstyled menu">
+                                        <li><a href="/">Home</a></li>
+                                        <li><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
+                                        <li><a href="/about">About</a></li>
+                                        <li><a href="/events">Events</a></li>
+                                        <li><a href="/contact">Contact</a></li>
+                                        <div th:if="${loggedInUser == null}">
+                                            <li><a href="/register">Sign Up</a></li>
+                                            <li><a href="/login">Sign In</a></li>
+                                        </div>
+                                        <div th:if="${loggedInUser != null}">
+                                            <li th:if="${loggedInUser.etat}" class="active">
+                                                <a href="/admin/hotels/add">Add Hotel</a>
+                                            </li>
+                                            <li th:if="${loggedInUser.etat}">
+                                                <a href="/admin/hotels/retrieve-all-hotel">Admin Hotel List</a>
+                                            </li>
+                                            <li th:if="${!loggedInUser.etat}">
+                                                <a href="#">My Reservations</a>
+                                            </li>
+                                            <li>
+                                                <form th:action="@{/logout}" method="post" style="display: inline;">
+                                                    <button type="submit" class="btn btn-link" style="padding: 0;">Sign Out</button>
+                                                </form>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</header>
+<!-- END head -->
+
+<section class="site-hero inner-page overlay" style="background-image: url(/images/hero_4.jpg)" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+            <div class="col-md-10 text-center" data-aos="fade">
+                <h1 class="heading mb-3">Update Hotel</h1>
+                <ul class="custom-breadcrumbs mb-4">
+                    <li><a href="/">Home</a></li>
+                    <li>&bullet;</li>
+                    <li>Update Hotel</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <a class="mouse smoothscroll" href="#next">
+        <div class="mouse-icon">
+            <span class="mouse-wheel"></span>
+        </div>
+    </a>
+</section>
+<!-- END section -->
+
 <div class="container">
-    <h2>Update Hotel</h2>
-    <form th:action="@{/admin/hotels/update/{hotelId}(hotelId=${hotel.hotel_id})}" th:object="${hotel}" method="post">
+    <h1>Update Hotel</h1>
+    <form th:action="@{|/admin/hotels/update/${hotel.hotel_id}|}" th:object="${hotel}" method="post">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter hotel name">
+            <label for="nom">Name</label>
+            <input type="text" th:field="*{nom}" class="form-control" id="nom" placeholder="Enter hotel name">
         </div>
         <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" th:field="*{address}" class="form-control" id="address" placeholder="Enter hotel address">
+            <label for="adresse">Address</label>
+            <input type="text" th:field="*{adresse}" class="form-control" id="adresse" placeholder="Enter hotel address">
+        </div>
+        <div class="form-group">
+            <label for="ville">City</label>
+            <input type="text" th:field="*{ville}" class="form-control" id="ville" placeholder="Enter hotel city">
+        </div>
+        <div class="form-group">
+            <label for="pays">Country</label>
+            <select th:field="*{pays}" class="form-control" id="pays">
+                <option th:each="p : ${T(com.example.hotels.Entities.Pays).values()}" th:value="${p}" th:text="${p}">Country</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
             <textarea th:field="*{description}" class="form-control" id="description" placeholder="Enter hotel description"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="form-group">
+            <label for="numEtoiles">Stars</label>
+            <select th:field="*{numEtoiles}" class="form-control" id="numEtoiles">
+                <option th:each="e : ${T(com.example.hotels.Entities.Etoiles).values()}" th:value="${e}" th:text="${e}">Stars</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="image">Image URL</label>
+            <input type="text" th:field="*{image}" class="form-control" id="image" placeholder="Enter image URL">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Hotel</button>
     </form>
 </div>
+
+<footer class="section footer-section">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-3 mb-5">
+                <ul class="list-unstyled link">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Rooms</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-5">
+                <ul class="list-unstyled link">
+                    <li><a href="#">The Rooms &amp; Suites</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Restaurant</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-5 pr-md-5 contact-info">
+                <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span> 198 West 21th Street, <br> Suite 721 New York NY 10016</span></p>
+                <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span> (+1) 435 3533</span></p>
+                <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> info@domain.com</span></p>
+            </div>
+            <div class="col-md-3 mb-5">
+                <p>Sign up for our newsletter</p>
+                <form action="#" class="footer-newsletter">
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email...">
+                        <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <p class="col-md-6 text-left">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            <p class="col-md-6 text-right social">
+                <a href="#"><span class="fa fa-tripadvisor"></span></a>
+                <a href="#"><span class="fa fa-facebook"></span></a>
+                <a href="#"><span class="fa fa-twitter"></span></a>
+                <a href="#"><span class="fa fa-linkedin"></span></a>
+                <a href="#"><span class="fa fa-vimeo"></span></a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/jquery.fancybox.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.timepicker.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
