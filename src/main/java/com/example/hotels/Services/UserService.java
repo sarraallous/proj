@@ -14,6 +14,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    // Assurez-vous d'avoir une interface UserRepository pour interagir avec la base de données
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }

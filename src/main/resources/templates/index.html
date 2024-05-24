@@ -65,6 +65,8 @@
                       <li th:if="${!loggedInUser.etat}">
                         <a href="#">My Reservations</a>
                       </li>
+                      
+
                       <li>
                         <form th:action="@{/logout}" method="post" style="display: inline;">
                           <button type="submit" class="btn btn-link" style="padding: 0;">Sign Out</button>

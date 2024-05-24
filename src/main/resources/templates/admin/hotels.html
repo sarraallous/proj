@@ -129,6 +129,7 @@
                 <td th:text="${hotel.pays}">Country</td>
                 <td th:text="${hotel.description}">Description</td>
                 <td th:text="${hotel.numEtoiles}">Stars</td>
+                <td th:text="${hotel.image}">pictue</td>
                 <td>
                     <a th:href="@{|/admin/hotels/update/${hotel.hotel_id}|}" class="btn btn-warning">Update</a>
                     <a th:href="@{|/admin/hotels/delete/${hotel.hotel_id}|}" class="btn btn-danger">Delete</a>
