@@ -47,7 +47,9 @@
                 <div class="col-md-6 mx-auto">
                   <ul class="list-unstyled menu">
                     <li class="active"><a href="/">Home</a></li>
+                    <div th:if="${loggedInUser != null}">
                     <li><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
+                    </div>
                     <li><a href="/about">About</a></li>
                     <li><a href="/events">Events</a></li>
                     <li><a href="/contact">Contact</a></li>
@@ -56,6 +58,9 @@
                       <li><a href="/login">Sign In</a></li>
                     </div>
                     <div th:if="${loggedInUser != null}">
+                      <li th:if="${loggedInUser.etat}">
+                        <a href="/users">Accounts</a>
+                      </li>
                       <li th:if="${loggedInUser.etat}">
                         <a href="/admin/hotels/add">Add Hotel</a>
                       </li>

@@ -28,7 +28,7 @@
 <header class="site-header js-site-header">
   <div class="container-fluid">
     <div class="row align-items-center">
-      <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="index.html">Sogo Hotel</a></div>
+      <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="/">Sogo Hotel</a></div>
       <div class="col-6 col-lg-8">
         <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
           <span></span>
@@ -178,42 +178,17 @@
       <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" th:each="chambre : ${listChambre}">
         <a href="#" class="room">
           <figure class="img-wrap">
-            <!-- Utilisez th:src pour définir la source de l'image à partir des données de la chambre -->
             <img th:src="${chambre.image}" alt="Room Image" class="img-fluid mb-3">
           </figure>
           <div class="p-3 text-center room-info">
-            <!-- Utilisez th:text pour définir le texte du titre à partir des données de la chambre -->
             <h2 th:text="${chambre.description}"></h2>
-            <!-- Utilisez th:text pour définir le texte du prix par nuit à partir des données de la chambre -->
-            <!--  <span th:text="${'Price: ' + chambre.price + ' / per night'}" class="text-uppercase letter-spacing-1"></span>-->
            </div>
          </a>
         <a th:href="@{/reservation/add}" class="btn btn-primary">Booking</a>
        </div>
 
 
-       <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
-         <a href="#" class="room">
-           <figure class="img-wrap">
-             <img src="/images/img_2.jpg" alt="Free website template" class="img-fluid mb-3">
-           </figure>
-           <div class="p-3 text-center room-info">
-             <h2>Family Room</h2>
-             <span class="text-uppercase letter-spacing-1">120$ / per night</span>
-           </div>
-         </a>
-       </div>
-       <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
-         <a href="#" class="room">
-           <figure class="img-wrap">
-             <img src="/images/img_3.jpg" alt="Free website template" class="img-fluid mb-3">
-           </figure>
-           <div class="p-3 text-center room-info">
-             <h2>Presidential Room</h2>
-             <span class="text-uppercase letter-spacing-1">250$ / per night</span>
-           </div>
-         </a>
-       </div>
+
      </div>
    </div>
  </section>

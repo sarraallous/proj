@@ -20,9 +20,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+
 
     public User findById(int id) {
         Optional<User> user = userRepository.findById(id);
@@ -71,4 +69,9 @@ public class UserService {
         User user = findById(userId);
         return user != null && user.isEtat();
     }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
 }

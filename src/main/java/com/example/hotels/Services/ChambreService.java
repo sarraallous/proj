@@ -1,6 +1,7 @@
 package com.example.hotels.Services;
 
 import com.example.hotels.Entities.Chambre;
+import com.example.hotels.Entities.Hotel;
 import com.example.hotels.Repository.ChambreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @Service
 public class ChambreService {
     @Autowired
-    ChambreRepository chambreRepository;
+    private ChambreRepository chambreRepository;
 
     public List<Chambre> findAll() {
         return chambreRepository.findAll();
@@ -43,4 +44,9 @@ public class ChambreService {
             throw new RuntimeException("Chambre not found with ID: " + id);
         }
     }
+
+    public List<Chambre> findRoomsByHotel(Hotel hotel) {
+        return chambreRepository.findByHotel(hotel);
+    }
+
 }
