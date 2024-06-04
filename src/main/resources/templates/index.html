@@ -48,7 +48,8 @@
                   <ul class="list-unstyled menu">
                     <li class="active"><a href="/">Home</a></li>
                     <div th:if="${loggedInUser != null}">
-                    <li><a href="/hotels/retrieve-all-hotel">Hotels</a></li>
+                      <li th:if="${!loggedInUser.etat}">
+                    <a href="/hotels/retrieve-all-hotel">Hotels</a></li>
                     </div>
                     <li><a href="/about">About</a></li>
                     <li><a href="/events">Events</a></li>
